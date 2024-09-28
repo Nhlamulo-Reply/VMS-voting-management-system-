@@ -9,23 +9,22 @@ dated 2024-09-28
 import numpy as np
 import cv2
 import  pytesseract
-from flask import Flask ,render_template,   request, json,Blueprint
+from flask import Flask, render_template, request, json, Blueprint, flash
 from lib import process_image
 from PIL import Image
 from io import BytesIO
 import os
+
+
 from  Exceptions import *
-from lib.process_image import process_image_data
+from lib.process_image import *
 
 module = Blueprint('process_image', __name__)
 
-
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-
-@module.route('/extact-data', methods=['POST'])
-def process(image):
+@module.route('/upload-image', methods=['POST'])
+def process():
     """
-     The following will endpoint is used to  extract tables and text from the image
+       Endpoint to process the uploaded image and save it to a specific directory.
 
     :param  image
     :param string Longitude
@@ -35,14 +34,24 @@ def process(image):
     :return:
 
     """
-    image = request.files['image']
-    lat = request.args.get("Longitude")
-    long = request.args.get("Longitude")
+
+    image = request.files.get('image')
 
     if not image:
-        raise AuthenticationError("No image provided")
+        return "No image provided", 400
 
-    return process_image_data(image,lat,long)
+
+    image_path = save_image(image)
+
+    csv_path = extract_tables(image_path)
+
+    extracted_text = perform_ocr(image_path)
+
+    return {
+        "message": "Image processed successfully",
+        "csv_path": csv_path,
+        "extracted_text": extracted_text
+    }, 200
 
 
 
