@@ -5,7 +5,7 @@ import cv2
 import pytesseract
 import pandas as pd
 from werkzeug.utils import secure_filename
-from flask import current_app
+from flask import current_app ,app
 
 
 def save_image(image: IO):
@@ -14,7 +14,7 @@ def save_image(image: IO):
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
 
-    toaycurrent_date= datetime.now().strftime("%Y%m%d_%H%M%S")
+    today = datetime.now().strftime("%Y%m%d_%H%M%S")
 
     filename_image = image.filename
     original_filename, file_ext = os.path.splitext(filename_image)
@@ -55,8 +55,7 @@ def extract_tables(image_path):
     df = df.drop_duplicates()
     today = datetime.now().strftime('%Y%m%d_%H%M%S')
     csv_filename = f"extracted_data_{today}.csv"
-    folder = current_app.config['UPLOAD_FOLDER']
-    csv_path = os.path.join(folder, csv_filename)
+    csv_path = os.path.join(current_app.config['UPLOAD_FOLDER'], csv_filename)
     df.to_csv(csv_path, index=False, header=False)
 
     return csv_path
