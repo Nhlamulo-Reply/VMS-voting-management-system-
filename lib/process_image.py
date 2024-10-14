@@ -8,6 +8,7 @@ from werkzeug.utils import secure_filename
 from flask import current_app ,app
 
 
+
 def save_image(image: IO):
     folder_path = current_app.config['UPLOAD_FOLDER']
 
