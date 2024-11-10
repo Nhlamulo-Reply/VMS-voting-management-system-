@@ -6,11 +6,13 @@ import pytesseract
 import pandas as pd
 from werkzeug.utils import secure_filename
 from flask import current_app ,app
+from db import Database
 
 
 
-def save_image(image: IO):
+def save_image(staff_id,image: IO,db:Database,longitute,latitude,fullAdress):
     folder_path = current_app.config['UPLOAD_FOLDER']
+
 
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
@@ -23,6 +25,21 @@ def save_image(image: IO):
     filename = secure_filename(new_filename)
     image_filename = os.path.join(folder_path, filename)
     image.save(image_filename)
+
+    sql = ("Insert into photographer (staff_id,image,date,longitute ,latitude,fullAddress)"
+           "VALUES (%(staff_id)s,%(image)s,now,%(longitute)s,%(latitude)s,%(fullAdress)s)")
+    params = {
+        'staff_id':staff_id,
+        'image':image_filename,
+        'longitude':longitute,
+        'latitude':latitude,
+        'fullAddress':fullAdress
+    }
+
+    res = db.execute(sql,params), "Failed to execute query"
+
+    if res:
+        return image_filename
 
     return image_filename
 

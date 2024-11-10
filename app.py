@@ -1,5 +1,7 @@
 from flask import Flask
 import pytesseract
+
+from db import Database
 from module.process_image import module as process_image_module
 
 
@@ -9,6 +11,15 @@ pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tessera
 app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+#database connection here
+db = Database(
+    host ='localhost',
+    user = 'root',
+    password = '',
+    database = 'votesdb'
+)
+app.config['db'] = 'db'
 
 app.register_blueprint(process_image_module, url_prefix='/process_image')
 

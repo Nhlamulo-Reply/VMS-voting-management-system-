@@ -39,7 +39,8 @@ def process():
         return "No image provided", 400
 
     # Save the image and get the path
-    image_path = save_image(image)
+    db = current_app.config['db']
+    image_path = save_image(image,db)
 
     # Process the image for table extraction and OCR
     csv_path = extract_tables(image_path)
