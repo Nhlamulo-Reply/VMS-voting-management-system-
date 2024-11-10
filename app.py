@@ -1,4 +1,6 @@
+#! C:\Users\User\AppData\Local\Programs\Python\Python312\python.exe
 from flask import Flask
+
 import pytesseract
 
 from db import Database
