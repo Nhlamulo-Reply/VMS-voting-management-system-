@@ -1,0 +1,7 @@
+PartyCode	Votes	logo
+DA	203161	
+ANC	82478	
+Party	45117	
+EFF	1633	
+CCC	11587	
+VF	6342	
