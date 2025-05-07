@@ -4,7 +4,7 @@ Dated 2024/10/14
 ### Unreleased
 ## Added
 -Added database connection (db_branch)
-- Image saved into folder 
+- Image saved into folder  (store_images)
 
 ## Changed
 
