@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="a4246466-0ecb-4072-815d-36490e4921ba" name="voteguard" url="http://localhost">
+        <fileTransfer accessType="LOCAL" port="0" />
+      </webServer>
+      <webServer id="76ea81ed-a661-41a9-9c25-fc73b3d954ab" name="test" url="http://localhost">
+        <fileTransfer accessType="LOCAL" port="0" />
+      </webServer>
+    </option>
+  </component>
+</project>
